@@ -1,0 +1,21 @@
+15)
+	a) La condicion de salida es que la pila "Pila1" este vacia.
+	b) Este ciclo no finaliza nunca porque la "Pila1" nunca se modifica.
+16)
+	a) El ciclo mueve los elementos de "Pila1" que valgan 5, primero a la pila "Aux" y luego a la pila "Result".
+17)
+	a) No resuelve al problema porque se rompe al vaciar la pila "Origen".
+	b) Como no esta asegurado que exista un elemento de valor 5, de no ser asi movera elementos a la pila "Distinto" hasta que "Origen" 	quede vacia, y se rompera el programa.
+	c) Reescribir la condición del while de la siguiente manera:
+
+		"	(!pilavacia(&Origen) && tope(&Origen) != 5)	"
+
+	d) Los componenets del programa son:
+		- Declaracion de variables.
+		- Inicializacion de Variables.
+		- Ingreso de datos.
+		- Procesamiento de datos.
+	( ? ? )
+18)
+	a) La condicion de salida es que ninguna de las pilas "Pila1" y "Pila2" no esten vacías.
+	b) Es posible que "Pila1" este vacia y/o "Pila2" este vacia, o bien ambas esten vacías.
