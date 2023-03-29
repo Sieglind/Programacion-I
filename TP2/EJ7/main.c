@@ -1,10 +1,12 @@
 #include <time.h>
+#include <stdbool.h>
 #include "funcionalidades.h"
 
 int main() {
     srand(time(NULL));
 
     Pila main, auxiliarA;
+    bool encontrado = false;
 
     inicpila(&main);
     inicpila(&auxiliarA);
@@ -16,10 +18,10 @@ int main() {
     }
 
 
-    while (!pilavacia(&main)) {
+    while (!pilavacia(&main) && !encontrado) {
         if (tope(&main) == query) {
             printf("Se encontro el elemento \"%d\" en la pila", query);
-            break;
+            encontrado = true;
         } else {
             pasar(&auxiliarA, &main);
         }

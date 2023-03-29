@@ -16,7 +16,7 @@ int main() {
     for (auxInt = 4; auxInt > 0; auxInt--) {
         apilar(&dada, auxInt);
     }
-
+    mostrar(&dada);
     while (!pilavacia(&dada)){
         apilar(&dadaInvertida, tope(&dada));
         pasar(&auxiliar,&dada);

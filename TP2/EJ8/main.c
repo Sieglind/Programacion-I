@@ -1,10 +1,12 @@
 #include <time.h>
+#include <stdbool.h>
 #include "funcionalidades.h"
 
 int main() {
     srand(time(NULL));
 
     Pila main, auxiliarA;
+    bool encontrado = false;
 
     inicpila(&main);
     inicpila(&auxiliarA);
@@ -15,12 +17,12 @@ int main() {
         apilar(&main, i + 1);
     }
 
-
-    while (!pilavacia(&main)) {
+    mostrar(&main);
+    while (!pilavacia(&main) && !encontrado) {
         if (tope(&main) == query) {
             desapilar(&main);
             printf("Se elimino el elemento \"%d\" en la pila", query);
-            break;
+            encontrado = true;
         } else {
             pasar(&auxiliarA, &main);
         }
