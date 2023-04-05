@@ -8,6 +8,8 @@
 
 void cargarPila(Pila *);
 
+void mostrarPila(Pila);
+
 void verificarPila(char[],Pila*);
 
 void pasarTodo(Pila *, Pila *);
@@ -59,6 +61,7 @@ int main() {
         switch (option) {
             case 1:
                 cargarPila(&origen);
+                mostrarPila(origen);
                 break;
             case 2:
                 verificarPila(ORIGEN,&origen);
@@ -121,8 +124,10 @@ void cargarPila(Pila *pila) {
     fflush(stdin);
 }
 
-void mostrarPila(Pila * pila){
-    
+void mostrarPila(Pila pila){
+    while(!pilavacia(&pila)){
+        printf("%d", desapilar(&pila));
+    }
 };
 
 void verificarPila(char nombrePila[],Pila * pila){
