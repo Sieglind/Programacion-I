@@ -8,7 +8,7 @@
 
 void cargarPila(Pila *);
 
-void mostrarPila(Pila);
+void mostrarPila(char [],Pila);
 
 void verificarPila(char[],Pila*);
 
@@ -24,7 +24,7 @@ void insertarNumero(int, Pila *);
 
 void insertarPila(Pila *, Pila *);
 
-int addStackFirstTwo(Pila *);
+int addStackFirstTwo(Pila);
 
 int contarElementos(Pila);
 
@@ -47,6 +47,7 @@ int main() {
 
     while (scanResult != 0) {
         option = 0;
+        system("cls");
         printf("Que desea hacer?\n");
         printf("1 - Cargar una pila con datos.\n");
         printf("2 - Pasar todos los elementos de una pila a otra.\n");
@@ -57,56 +58,77 @@ int main() {
         printf("7 - Insertar una pila en otra pila ordenadamente.\n");
         printf("8 - Sumar primeros dos elementos de una pila.\n");
         printf("9 - Calcular promedio de valores de una pila.\n");
+        printf("10 - Compilar un entero con los elementos de una pila.\n");
         scanResult = scanf("%d", &option);
         switch (option) {
             case 1:
+                inicpila(&origen);
                 cargarPila(&origen);
-                mostrarPila(origen);
+                mostrarPila(ORIGEN,origen);
                 break;
             case 2:
                 verificarPila(ORIGEN,&origen);
                 inicpila(&destino);
                 pasarTodo(&origen, &destino);
+                mostrarPila(DESTINO,destino);
                 break;
             case 3:
                 verificarPila(ORIGEN,&origen);
+                inicpila(&destino);
                 copiarPila(&origen, &destino);
+                mostrarPila(ORIGEN,origen);
+                mostrarPila(DESTINO,destino);
                 break;
             case 4:
                 verificarPila(ORIGEN,&origen);
+                mostrarPila(ORIGEN,origen);
                 auxiliar = sacarMinimo(&origen);
-                printf("%d", auxiliar);
+                printf("El minimo de 'origen' es: %d\n", auxiliar);
+                mostrarPila(ORIGEN,origen);
+                break;
             case 5:
                 verificarPila(ORIGEN,&origen);
+                mostrarPila(ORIGEN,origen);
                 ordenarPila(&origen, &destino);
+                mostrarPila(DESTINO,destino);
                 break;
             case 6:
                 verificarPila(ORIGEN,&origen);
+                mostrarPila(ORIGEN,origen);
                 printf("Que numero desea insertar?: ");
                 scanf("%d",&auxiliar);
-                insertarNumero(auxiliar, &destino);
+                insertarNumero(auxiliar, &origen);
+                mostrarPila(ORIGEN,origen);
                 break;
             case 7:
                 verificarPila(ORIGEN,&origen);
                 verificarPila(DESTINO,&destino);
+                mostrarPila(ORIGEN,origen);
+                mostrarPila(DESTINO,destino);
                 insertarPila(&origen, &destino);
+                mostrarPila(DESTINO,destino);
                 break;
             case 8:
                 verificarPila(ORIGEN,&origen);
-                printf("%d", addStackFirstTwo(&origen));
+                mostrarPila(ORIGEN,origen);
+                printf("\nLa suma de los primeros dos elementos da: %d", addStackFirstTwo(origen));
                 break;
             case 9:
                 verificarPila(ORIGEN,&origen);
-                printf("%f", calcularPromedio(origen));
+                mostrarPila(ORIGEN,origen);
+                printf("El promedio de valores de la pila es: %f \n", calcularPromedio(origen));
                 break;
             case 10:
                 verificarPila(ORIGEN,&origen);
+                mostrarPila(ORIGEN,origen);
                 printf("%lf", compilarNumero(origen));
                 break;
             default:
                 scanResult = 0;
         }
+        system("pause");
     }
+    printf("\n");
     system("pause");
     return 0;
 }
@@ -118,20 +140,25 @@ void cargarPila(Pila *pila) {
     while (scanResult != 0) {
         printf("Ingrese un numero entero: ");
         scanResult = scanf("%d", &enteroIngresado);
+        if (scanResult != 0){
+            apilar(pila, enteroIngresado);
+        }
         system("cls");
-        apilar(pila, enteroIngresado);
     }
     fflush(stdin);
 }
 
-void mostrarPila(Pila pila){
+void mostrarPila(char nombrePila[],Pila pila){
+    printf("%s : \n",nombrePila);
     while(!pilavacia(&pila)){
-        printf("%d", desapilar(&pila));
+        printf("%d ", desapilar(&pila));
     }
+    printf("\n");
 };
 
 void verificarPila(char nombrePila[],Pila * pila){
     if (pilavacia(pila)){
+        system("cls");
         printf(PILA_VACIA,nombrePila);
         cargarPila(pila);
     }
@@ -160,7 +187,7 @@ int sacarMinimo(Pila *origen) {
     minimo = desapilar(origen);
     while (!pilavacia(origen)) {
         if (minimo < tope(origen)) {
-            apilar(&auxiliarA, tope(origen));
+            apilar(&auxiliarA, desapilar(origen));
         } else {
             apilar(&auxiliarA, minimo);
             minimo = desapilar(origen);
@@ -190,15 +217,11 @@ void insertarPila(Pila *origen, Pila *destino) {
     }
 }
 
-int addStackFirstTwo(Pila *origen) {
-    Pila auxiliar;
+int addStackFirstTwo(Pila origen) {
     int suma = 0;
-    inicpila(&auxiliar);
     for (int i = 0; i < 2; i++) {
-        suma = suma + tope(origen);
-        apilar(&auxiliar, desapilar(origen));
+        suma = suma + desapilar(&origen);
     }
-    pasarTodo(&auxiliar, origen);
     return suma;
 }
 
@@ -235,8 +258,8 @@ float calcularPromedio(Pila pila) {
 double compilarNumero(Pila origen) {
     double numero = 0;
     int digitos = contarElementos(origen);
-    for (int i = digitos; -1 < i; i--) {
-        numero = numero + pow(i, 10) * desapilar(&origen);
+    for (int i = digitos; i > 0; i--) {
+        numero = numero + (pow(10, i) * desapilar(&origen));
     }
     return numero;
 }
