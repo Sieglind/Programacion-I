@@ -12,11 +12,19 @@ int getRandomNumber();
 
 void showMaxAndMin(int, int, int);
 
-int addUpto(const int);
+int addUpto(int);
 
 void showMultiplicationTable();
 
 void invertNumber(int *);
+
+void loadTwoNumbers(int *, int *);
+
+void showCalculatorMenu();
+
+void sumar(int, int);
+
+void calculator();
 
 int main() {
     srand(time(NULL));
@@ -46,10 +54,18 @@ int main() {
             case 4:
                 showMultiplicationTable();
                 break;
+            case 5:
+                calculator();
+                break;
             case 6:
                 invertNumber(&numberA);
-                printf("El numero invertido es: %d\n",numberA);
+                printf("El numero invertido es: %d\n", numberA);
                 break;
+            case 7:
+                loadTwoNumbers(&numberA, &numberB);
+                break;
+            default:
+                scanResult = 0;
         }
         system("pause");
         system("cls");
@@ -64,8 +80,11 @@ void showMenu() {
     printf("2 - Determinar el maximo de entre 3 numeros.\n");
     printf("3 - Sumar desde cero hasta cierto numero.\n");
     printf("4 - Mostrar una tabla de multiplicar.\n");
+    printf("5 - Abrir calculador.\n");
     printf("6 - Cambiar el signo de una variable positiva.\n");
+    printf("7 - Cargar dos variables.\n");
 }
+
 
 int getRandomNumber() {
 
@@ -133,6 +152,86 @@ void showMultiplicationTable() {
     }
 }
 
+void showCalculatorMenu() {
+    printf("Que operacion desea realizar?.\n");
+    printf("1 - Suma");
+    printf("2 - Resta");
+    printf("3 - Multiplicacion");
+    printf("4 - Division");
+    printf("5 - Raiz Cuadrada");
+    printf("6 - Elevar al cuadrado");
+    printf("7 - Inversa");
+    printf("8 - Sacar porcentaje");
+}
+
+void sumar(int numberA, int numberB) {
+    printf("%d + %d = %d", numberA, numberB, numberA + numberB);
+}
+
+void restar(int numberA, int numberB) {
+    printf("%d - %d = %d", numberA, numberB, numberA - numberB);
+}
+
+void multiply(int numberA, int numberB) {
+    printf("%d x %d = %d", numberA, numberB, numberA * numberB);
+}
+
+void divide(int numberA, int numberB) {
+    printf("%d : %d = %lf", numberA, numberB, (float) numberA / (float) numberB);
+}
+
+void root(int numberA) {
+    printf("%d ^ 2 = %d", numberA, numberA * numberA);
+}
+
+void calculator() {
+    int scanResult = 1;
+    int option = 0;
+    int numberA = 0;
+    int numberB = 0;
+    while (scanResult == 1) {
+        showCalculatorMenu();
+        scanResult = loadVariable(&option);
+        switch (option) {
+            case 1:
+                loadTwoNumbers(&numberA, &numberB);
+                sumar(numberA, numberB);
+                break;
+            case 2:
+                loadTwoNumbers(&numberA, &numberB);
+                restar(numberA, numberB);
+                break;
+            case 3:
+                loadTwoNumbers(&numberA, &numberB);
+                multiply(numberA, numberB);
+                break;
+            case 4:
+                numberB = 0;
+                numberPrompt(&numberA);
+                while (numberB == 0) {
+                    numberPrompt(&numberB);
+                }
+                divide(numberA, numberB);
+                break;
+            case 5:
+                numberA = 0;
+                while (numberA < 1) {
+                    numberPrompt(&numberA);
+                }
+                elevar(numberA);
+                break;
+            case 6:
+
+                break;
+            default:
+                scanResult = 0;
+        }
+        system("pause");
+        system("cls");
+    }
+
+}
+
 void invertNumber(int *number) {
     *number = INT_MIN;
     while (*number < 0) {
@@ -140,4 +239,9 @@ void invertNumber(int *number) {
         loadVariable(number);
     }
     *number = 0 - *number;
+}
+
+void loadTwoNumbers(int *numberA, int *numberB) {
+    numberPrompt(numberA);
+    numberPrompt(numberB);
 }
