@@ -18,6 +18,8 @@ void llenarArregloFLoat(float arreglo[]);
 
 void mostrarArregloFloat(float arreglo[]);
 
+float sumatoriaArregloFloat(float arreglo[], int validos);
+
 void llenarArregloChar(char arreglo[]);
 
 void mostrarArregloChar(char arreglo[], int validos);
@@ -44,7 +46,7 @@ int cargarRandomArregloCharOrdenado(char arreglo[]);
 
 void juntarArreglosChar(char arregloA[], int validosA, char arregloB[], int validosB);
 
-void vectorAcumulativo(int arreglo[],int validos);
+void vectorAcumulativo(int arreglo[], int validos);
 
 int main() {
     srand(time(NULL));
@@ -67,47 +69,79 @@ int main() {
     char arregloG[25];
     int validosG;
 
-
+    ///Ejercicio 1
     validosA = cargarArreglo(arregloA, dimensionA);
     printf("Se agregaron %d elementos.\n", validosA);
+
+    ///Ejercicio 2
     mostrarArreglo(arregloA, validosA);
+
+    ///Ejercicio 3
     auxiliar = sumatoriaArreglo(arregloA, validosA);
     printf("La suma de los elementos es: %d\n", auxiliar);
     mostrarArreglo(arregloA, validosA);
+
+    ///Ejercicio 4
     arregloAPila(arregloA, validosA, &pila);
-    llenarArregloFLoat(arregloB);
     mostrar(&pila);
+
+    ///Ejercicio 5
+    llenarArregloFLoat(arregloB);
     mostrarArregloFloat(arregloB);
+    printf("La suma de los elementos es: %f\n", sumatoriaArregloFloat(arregloB, 100));
+
+    ///Ejercicio 6
     llenarArregloChar(arregloC);
     char query = (char) ((rand() % 25) + 65);
     bool found = encontrarCaracter(arregloC, validosC, query);
     mostrarArregloChar(arregloC, validosC);
     printf("El caracter: %c, %s encontro en el arreglo\n", query, found ? "se" : "no se");
+
+    ///Ejercicio 7
     validosC = insertarCharOrdenado(arregloC, validosC, query);
     mostrarArregloChar(arregloC, validosC);
+
+    ///Ejercicio 8
     printf("El mayor caracter del arreglo es: %c\n", obtenerMaximo(arregloC, validosC));
+
+    ///Ejercicio 9
     printf("El arreglo %s capicua.\n", arregloCharCapicua(arregloC, validosC) ? "es" : "no es");
     mostrarArregloChar(arregloD, validosD);
     printf("El arreglo %s capicua.\n", arregloCharCapicua(arregloD, validosD) ? "es" : "no es");
     mostrarArregloChar(arregloE, validosE);
     printf("El arreglo %s capicua.\n", arregloCharCapicua(arregloE, validosE) ? "es" : "no es");
+
+    ///Ejercicio 10
+    mostrarArregloChar(arregloC, validosC);
     invertirArreglo(arregloC, validosC);
     mostrarArregloChar(arregloC, validosC);
+
+    ///Ejercicio 11 - Seleccion
     llenarArregloRandomInt(arregloA, dimensionA);
     mostrarArreglo(arregloA, dimensionA);
     ordernarArregloIntSeleccion(arregloA, dimensionA);
     mostrarArreglo(arregloA, dimensionA);
+
+    ///Ejercicio 11 - Insercion
     llenarArregloRandomInt(arregloA, dimensionA);
     mostrarArreglo(arregloA, dimensionA);
     ordernarArregloIntInsercion(arregloA, dimensionA);
-    mostrarArreglo(arregloA,dimensionA);
+    mostrarArreglo(arregloA, dimensionA);
+
+    ///Ejercicio 12
+    //Creo un arreglo ordenado
     validosF = cargarRandomArregloCharOrdenado(arregloF);
     mostrarArregloChar(arregloF, validosF);
+    //Creo otro arreglo ordenado
     validosG = cargarRandomArregloCharOrdenado(arregloG);
     mostrarArregloChar(arregloG, validosG);
+    //Junto los arreglos con una funcion re zarpada
     juntarArreglosChar(arregloF, validosF, arregloG, validosG);
-    mostrarArreglo(arregloA,validosA);
-    vectorAcumulativo(arregloA,validosA);
+
+    ///Ejercicio 13
+    mostrarArreglo(arregloA, validosA);
+    vectorAcumulativo(arregloA, validosA);
+
     system("pause");
     return 0;
 }
@@ -167,6 +201,14 @@ void mostrarArregloFloat(float arreglo[]) {
         printf("%.2f ", arreglo[i]);
     }
     printf("\n");
+}
+
+float sumatoriaArregloFloat(float arreglo[], int validos) {
+    float auxiliar = 0;
+    for (int i = 0; i < validos; i++) {
+        auxiliar = auxiliar + arreglo[i];
+    }
+    return auxiliar;
 }
 
 void llenarArregloChar(char arreglo[]) {
@@ -297,19 +339,19 @@ void juntarArreglosChar(char arregloA[], int validosA, char arregloB[], int vali
     char arregloDestino[dimensionAD];
     int validosAD = validosA;
     for (int i = 0; i < validosAD; i++) {
-        arregloDestino[i]=arregloA[i];
+        arregloDestino[i] = arregloA[i];
     }
-    for(int i = 0 ; i < validosB;i++){
-        validosAD = insertarCharOrdenado(arregloDestino,validosAD,arregloB[i]);
+    for (int i = 0; i < validosB; i++) {
+        validosAD = insertarCharOrdenado(arregloDestino, validosAD, arregloB[i]);
     }
-    mostrarArregloChar(arregloDestino,validosAD);
+    mostrarArregloChar(arregloDestino, validosAD);
 }
 
-void vectorAcumulativo(int arreglo[],int validos){
+void vectorAcumulativo(int arreglo[], int validos) {
     int resultado[validos];
     resultado[0] = arreglo[0];
-    for (int i = 1; i < validos; i++){
-        resultado[i] = resultado[i-1] + arreglo[i];
+    for (int i = 1; i < validos; i++) {
+        resultado[i] = resultado[i - 1] + arreglo[i];
     }
-    mostrarArreglo(resultado,validos);
+    mostrarArreglo(resultado, validos);
 }
