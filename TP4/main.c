@@ -10,7 +10,7 @@ int cargarArreglo(int arreglo[], int dimension);
 
 void mostrarArreglo(int arreglo[], int validos);
 
-int sumatoriaArreglo(int arreglo[], int validos);
+int sumatoriaArreglo(const int arreglo[], int validos);
 
 void arregloAPila(int arreglo[], int validos, Pila *pila);
 
@@ -18,21 +18,21 @@ void llenarArregloFLoat(float arreglo[]);
 
 void mostrarArregloFloat(float arreglo[]);
 
-float sumatoriaArregloFloat(float arreglo[], int validos);
+float sumatoriaArregloFloat(const float arreglo[], int validos);
 
 void llenarArregloChar(char arreglo[]);
 
 void mostrarArregloChar(char arreglo[], int validos);
 
-bool encontrarCaracter(char arreglo[], int validos, char query);
+bool encontrarCaracter(const char arreglo[], int validos, char query);
 
-int encontrarPosicion(char arreglo[], int validos, char query);
+int encontrarPosicion(const char arreglo[], int validos, char query);
 
 int insertarCharOrdenado(char arreglo[], int validos, char query);
 
-char obtenerMaximo(char arreglo[], int validos);
+char obtenerMaximo(const char arreglo[], int validos);
 
-bool arregloCharCapicua(char arreglo[], int validos);
+bool arregloCharCapicua(const char arreglo[], int validos);
 
 void invertirArreglo(char arreglo[], int validos);
 
@@ -44,9 +44,9 @@ void ordernarArregloIntInsercion(int arreglo[], int validos);
 
 int cargarRandomArregloCharOrdenado(char arreglo[]);
 
-void juntarArreglosChar(char arregloA[], int validosA, char arregloB[], int validosB);
+void juntarArreglosChar(const char arregloA[], int validosA, char arregloB[], int validosB);
 
-void vectorAcumulativo(int arreglo[], int validos);
+void vectorAcumulativo(const int arreglo[], int validos);
 
 int main() {
     srand(time(NULL));
@@ -172,7 +172,7 @@ void mostrarArreglo(int arreglo[], int validos) {
     printf("\n");
 }
 
-int sumatoriaArreglo(int arreglo[], int validos) {
+int sumatoriaArreglo(const int arreglo[], int validos) {
     int auxiliar = 0;
     for (int i = 0; i < validos; i++) {
         auxiliar = auxiliar + arreglo[i];
@@ -203,7 +203,7 @@ void mostrarArregloFloat(float arreglo[]) {
     printf("\n");
 }
 
-float sumatoriaArregloFloat(float arreglo[], int validos) {
+float sumatoriaArregloFloat(const float arreglo[], int validos) {
     float auxiliar = 0;
     for (int i = 0; i < validos; i++) {
         auxiliar = auxiliar + arreglo[i];
@@ -224,7 +224,7 @@ void mostrarArregloChar(char arreglo[], int validos) {
     printf("\n");
 }
 
-bool encontrarCaracter(char arreglo[], int validos, char query) {
+bool encontrarCaracter(const char arreglo[], int validos, char query) {
     bool found = false;
     int i = 0;
     while (i < validos && !found) {
@@ -237,7 +237,7 @@ bool encontrarCaracter(char arreglo[], int validos, char query) {
     return found;
 }
 
-int encontrarPosicion(char arreglo[], int validos, char query) {
+int encontrarPosicion(const char arreglo[], int validos, char query) {
     int posicion = 0;
     while (query > arreglo[posicion] && posicion < validos) {
         posicion++;
@@ -254,7 +254,7 @@ int insertarCharOrdenado(char arreglo[], int validos, char query) {
     return ++validos;
 }
 
-char obtenerMaximo(char arreglo[], int validos) {
+char obtenerMaximo(const char arreglo[], int validos) {
     char maximo = 0;
     for (int i = 0; i < validos; i++) {
         if (maximo < arreglo[i]) maximo = arreglo[i];
@@ -262,7 +262,7 @@ char obtenerMaximo(char arreglo[], int validos) {
     return maximo;
 }
 
-bool arregloCharCapicua(char arreglo[], int validos) {
+bool arregloCharCapicua(const char arreglo[], int validos) {
     int auxA = 0;
     int auxB = validos - 1;
     while (arreglo[auxA] == arreglo[auxB] && auxA < auxB) {
@@ -334,7 +334,7 @@ int cargarRandomArregloCharOrdenado(char arreglo[]) {
     return validos;
 }
 
-void juntarArreglosChar(char arregloA[], int validosA, char arregloB[], int validosB) {
+void juntarArreglosChar(const char arregloA[], int validosA, char arregloB[], int validosB) {
     int dimensionAD = validosA + validosB;
     char arregloDestino[dimensionAD];
     int validosAD = validosA;
@@ -347,7 +347,7 @@ void juntarArreglosChar(char arregloA[], int validosA, char arregloB[], int vali
     mostrarArregloChar(arregloDestino, validosAD);
 }
 
-void vectorAcumulativo(int arreglo[], int validos) {
+void vectorAcumulativo(const int arreglo[], int validos) {
     int resultado[validos];
     resultado[0] = arreglo[0];
     for (int i = 1; i < validos; i++) {
